@@ -12,6 +12,8 @@ def Cantidades(azucar_tipo_main):
 
 	print ("Los ingredientes para estas galletas con chips de chocolate (sin modificar la textura original) son los siguientes: ", "\n")
 
+	cont = 0
+
 	for key, value in ingredientes.items():
 
 		print(key, value, "\n")
@@ -30,33 +32,8 @@ def Cantidades(azucar_tipo_main):
         
 		Unidades_Alt = 24
 		
-		for key, value in ingredientes.items():
+		ingredientes_alt = Cant_Text(azucar_tipo_main, ingredientes, Unidades_Alt, Unidades, ingredientes_alt)
 
-			ing_alt = funciones.ingALT(Unidades_Alt,value,Unidades)
-			ingredientes_alt [key] = ing_alt
-        
-		if (azucar_tipo_main == "azucar blanca: "):
-            
-			for key in ingredientes:
-                
-				if (key == "azucar marron: "):
-                    
-					ingredientes_alt["azucar blanca: "] = funciones.azucALT(ingredientes_alt["azucar blanca: "], ingredientes_alt["azucar marron: "])
-					del ingredientes_alt ["azucar marron: "]
-                    
-		elif (azucar_tipo_main == ""):
-            
-			azucar_tipo_main == ""
-            
-		else:
-            
-			for key in ingredientes:
-                
-				if (key == "azucar blanca: "):
-                    
-					ingredientes_alt["azucar negra: "] = funciones.azucALT(ingredientes_alt["azucar blanca: "], ingredientes_alt["azucar marron: "])
-					del ingredientes_alt ["azucar marron: "]
-					del ingredientes_alt ["azucar blanca: "]
                 
 		print("\n")
 		print("Los ingredientes alterados tanto en cantidad como textura son los siguientes: ")
@@ -73,36 +50,12 @@ def Cantidades(azucar_tipo_main):
 		print(text2)
 
 	elif (Cantidad == "si"):
+        
+		cont = cont + 1
 
 		Unidades_Alt = int(input ("Para cuantas unidades desea ajustar la receta?: "))
 		
-		for key, value in ingredientes.items():
-
-			ing_alt = funciones.ingALT(Unidades_Alt,value,Unidades)
-			ingredientes_alt [key] = ing_alt
-        
-		if (azucar_tipo_main == "azucar blanca: "):
-            
-			for key in ingredientes:
-                
-				if (key == "azucar marron: "):
-                    
-					ingredientes_alt["azucar blanca: "] = funciones.azucALT(ingredientes_alt["azucar blanca: "], ingredientes_alt["azucar marron: "])
-					del ingredientes_alt ["azucar marron: "]
-                    
-		elif (azucar_tipo_main == ""):
-            
-			azucar_tipo_main == ""
-            
-		else:
-            
-			for key in ingredientes:
-                
-				if (key == "azucar blanca: "):
-                    
-					ingredientes_alt["azucar negra: "] = funciones.azucALT(ingredientes_alt["azucar blanca: "], ingredientes_alt["azucar marron: "])
-					del ingredientes_alt ["azucar marron: "]
-					del ingredientes_alt ["azucar blanca: "]
+		ingredientes_alt = Cant_Text(azucar_tipo_main, ingredientes, Unidades_Alt, Unidades, ingredientes_alt)
                 
 		print("\n")
 		print("Los ingredientes alterados tanto en cantidad como textura son los siguientes: ")
@@ -120,6 +73,8 @@ def Cantidades(azucar_tipo_main):
 		print ("\n")
 
 	while (Confirmar_cant == "si"):
+        
+		cont = cont + 1
 
 		Unidades_Alt = int(input ("Para cuantas unidades desea ajustar la receta?: "))
 		
@@ -127,6 +82,9 @@ def Cantidades(azucar_tipo_main):
 
 			ing_alt = funciones.ingALT(Unidades_Alt,value,Unidades)
 			ingredientes_alt [key] = ing_alt
+            
+			ingredientes_alt = Cant_Text(azucar_tipo_main, ingredientes, Unidades_Alt, Unidades, ingredientes_alt)
+
 
 		for key, value in ingredientes_alt.items():
 
@@ -141,15 +99,17 @@ def Cantidades(azucar_tipo_main):
 			print ("\n")
 
 	if (Confirmar_cant == "no"):
+        
+		if (cont != 0):
 
-		with open ("prepnormal.txt", "r") as file:
-			text1 = file.read()
-		print (text1)
+			with open ("prepnormal.txt", "r") as file:
+				text1 = file.read()
+			print (text1)
 	 
-		with open ("coccnormal.txt", "r") as file:
-			text2 = file.read()
-		print(text2)
-		print(ingredientes.get("azucar blanca: "))
+			with open ("coccnormal.txt", "r") as file:
+				text2 = file.read()
+			print(text2)
+			
 
 	
 def Textura():
@@ -187,7 +147,37 @@ def Textura():
             
             
     return(azucar_tipo)
-           
-        
 
-#§revisar y debugear lo que queda
+
+def Cant_Text(azucar_tipo_main, ingredientes, Unidades_Alt, Unidades, ingredientes_alt):
+
+	for key, value in ingredientes.items():
+
+		ing_alt = funciones.ingALT(Unidades_Alt,value,Unidades)
+		ingredientes_alt [key] = ing_alt
+        
+	if (azucar_tipo_main == "azucar blanca: "):
+            
+		for key in ingredientes:
+                
+			if (key == "azucar marron: "):
+                    
+				ingredientes_alt["azucar blanca: "] = funciones.azucALT(ingredientes_alt["azucar blanca: "], ingredientes_alt["azucar marron: "])
+				del ingredientes_alt ["azucar marron: "]
+                    
+	elif (azucar_tipo_main == ""):
+            
+		azucar_tipo_main == ""
+            
+	else:
+            
+		for key in ingredientes:
+                
+			if (key == "azucar blanca: "):
+                    
+				ingredientes_alt["azucar negra: "] = funciones.azucALT(ingredientes_alt["azucar blanca: "], ingredientes_alt["azucar marron: "])
+				del ingredientes_alt ["azucar marron: "]
+				del ingredientes_alt ["azucar blanca: "]   
+    
+	return(ingredientes_alt)
+
