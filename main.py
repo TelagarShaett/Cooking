@@ -6,6 +6,7 @@ c = "Budin de limon"
 
 listado =[a, b, c]
 
+#innecesario encerrar entre parentesis
 Recetas = ("a) Galletas con chips de chocolate" "\n" "b) Brownies de chocolate" "\n" "c) Budin de limon")
 
 
@@ -16,6 +17,7 @@ azucar_tipo_main =""
 
 while (Comida_m != "salir"):
 	if (Comida_m == "recetas"):
+		#innecesario extraer el string para arriba
 		print (Recetas)
 		print ("\n")
 	
